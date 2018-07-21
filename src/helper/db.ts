@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { getEnvItem } from'./utils';
+import { getEnvItem } from './utils';
 
 export const connectMongo = async () => {
   const uri = getEnvItem('MONGO_URI');
@@ -17,5 +17,8 @@ export const connectMongo = async () => {
     // socketTimeoutMS: 45000 // Close sockets after 45 seconds of inactivity
   };
 
-  return mongoose.connect(uri, options);
+  return mongoose.connect(
+    uri,
+    options
+  );
 };

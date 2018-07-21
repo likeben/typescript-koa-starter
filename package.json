@@ -9,7 +9,7 @@
     "build": "tsc",
     "start": "cross-env NODE_ENV=production node dist/index.js",
     "lint": "tslint -c tslint.json -p tsconfig.json",
-    "lint:fix": "npm run lint --fix"
+    "lint:fix": "tslint -c tslint.json -p tsconfig.json --fix"
   },
   "keywords": [],
   "author": "",

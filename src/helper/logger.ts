@@ -4,7 +4,7 @@ export const createLogger = (name?: string) => {
   return pino({
     name,
     prettyPrint: true,
-    level: 'debug'
+    level: 'debug',
   });
 };
 

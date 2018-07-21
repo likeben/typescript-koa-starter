@@ -7,4 +7,4 @@ export const getEnvItem = (key: string) => {
     return process.exit(1);
   }
   return value;
-}
+};
