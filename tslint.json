@@ -12,7 +12,8 @@
     "prettier": [
       true,
       {
-        "singleQuote": true
+        "singleQuote": true,
+        "trailingComma": true,
       }
     ],
     "no-console": false,
