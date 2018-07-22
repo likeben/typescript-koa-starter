@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 import fs from 'fs';
 import path from 'path';
-import logger from './helper/logger';
+import logger from './helpers/logger';
 import startServer from './server';
 
 let dotenvFilePath = '.env.example';

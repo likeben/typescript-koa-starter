@@ -6,6 +6,7 @@ export type UserEntity = mongoose.Document & {
   phoneNumber: string;
   profile?: {
     name: string;
+    email: string;
     gender: string;
     location: string;
     website: string;
@@ -20,6 +21,7 @@ const userSchema = new mongoose.Schema(
     phoneNumber: String,
     profile: {
       name: String,
+      email: String,
       gender: String,
       location: String,
       website: String,

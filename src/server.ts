@@ -2,11 +2,12 @@ import cors from '@koa/cors';
 import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
 import helmet from 'koa-helmet';
-import requestLogger from 'koa-logger';
-import Router from 'koa-router';
-import { connectMongo } from './helper/db';
-import logger from './helper/logger';
-import { getEnvItem } from './helper/utils';
+// import requestLogger from 'koa-logger';
+import { connectMongo } from './helpers/db';
+import logger from './helpers/logger';
+import { getEnvItem } from './helpers/utils';
+import errorHandler from './middlewares/errorHandler';
+import routes from './routes';
 // import multer from 'koa-multer';
 // import static from 'koa-static';
 // import session from 'koa-session';
@@ -21,10 +22,11 @@ export default async () => {
 
   const app = new Koa();
   app
+    .use(errorHandler())
     .use(helmet())
     .use(cors())
-    .use(bodyParser())
-    .use(requestLogger());
+    .use(bodyParser());
+  // .use(requestLogger())
   // app.use(compress({
   //   filter: function (content_type: string) {
   //   	return /text/i.test(content_type)
@@ -49,13 +51,11 @@ export default async () => {
 
   // app.use(session(CONFIG, app));
 
-  const router = new Router();
+  routes(app);
 
-  router.get('/', async ctx => {
-    ctx.body = 'OK';
-  });
-
-  app.use(router.routes()).use(router.allowedMethods());
+  // app.on('error', (err, ctx) => {
+  //   logger.error('server error', err, ctx);
+  // });
 
   const port = getEnvItem('PORT');
   app.listen(port, () => {
