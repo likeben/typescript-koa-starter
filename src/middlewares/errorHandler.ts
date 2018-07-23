@@ -6,7 +6,15 @@ function errorHandler(): Middleware {
     try {
       await next();
     } catch (e) {
-      logger.error('server error', e, ctx);
+      if (e instanceof Error) {
+        logger.error('\n', 'error: ', e.stack, '\n', 'ctx: ', ctx);
+      } else {
+        logger.error('\n', 'error: ', e, '\n', 'ctx: ', ctx);
+      }
+      ctx.status = 500;
+      ctx.body = {
+        error: '系统繁忙',
+      };
     }
   };
 }

@@ -1,11 +1,13 @@
 import validator from 'validator';
 import * as yup from 'yup';
 
-yup.addMethod(yup.string, 'mobilePhone', function mobilePhone() {
+yup.addMethod(yup.string, 'mobilePhone', function() {
   return this.test({
     name: 'mobilePhone',
-    test: (value: string) => validator.isMobilePhone(value, 'zh-CN'),
-    message: '${path} must be a valid mobile phone number',
+    test: (value: string) =>
+      value == null || validator.isMobilePhone(value, 'zh-CN'),
+    message: '${path} must be a valid mobile number',
+    exclusive: true,
   });
 });
 
