@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { comparePwd, hashPwd } from '../helpers/utils';
 
 export type UserEntity = mongoose.Document & {
   username: string;
@@ -12,6 +13,12 @@ export type UserEntity = mongoose.Document & {
     website: string;
     picture: string;
   };
+
+  comparePassword: (value: string) => boolean;
+};
+
+export type UserModel = mongoose.Model<UserEntity> & {
+  findByUsername: (username: string) => UserEntity;
 };
 
 const userSchema = new mongoose.Schema(
@@ -29,10 +36,32 @@ const userSchema = new mongoose.Schema(
     },
   },
   {
+    collection: 'User',
     timestamps: true,
+    // toJSON: { getters: true },
   }
 );
 
-const UserModel = mongoose.model('User', userSchema);
+userSchema.pre('save', function(next) {
+  const user = this as UserEntity;
+  if (!user.isModified('password')) {
+    return next();
+  }
+  user.password = hashPwd(user.password);
+  next();
+});
 
-export default class User extends UserModel {}
+userSchema.statics.findByUsername = function(
+  this: UserModel,
+  username: string
+) {
+  return this.findOne({ username });
+};
+
+userSchema.methods.comparePassword = function(this: UserEntity, value: string) {
+  return comparePwd(value, this.password);
+};
+
+const User = mongoose.model('User', userSchema) as UserModel;
+
+export default User;
