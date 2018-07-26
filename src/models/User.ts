@@ -13,6 +13,7 @@ export type UserEntity = mongoose.Document & {
     website: string;
     picture: string;
   };
+  deleted: boolean;
 
   comparePassword: (value: string) => boolean;
 };
@@ -34,6 +35,7 @@ const userSchema = new mongoose.Schema(
       website: String,
       picture: String,
     },
+    deleted: Boolean,
   },
   {
     collection: 'User',

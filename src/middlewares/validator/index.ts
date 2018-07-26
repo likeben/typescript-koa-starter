@@ -7,20 +7,23 @@ import * as schemaMap from './schemas';
 function createValidator(type: 'body' | 'query' | 'params' = 'body') {
   return (schemaName: string): IMiddleware => {
     const schema: MixedSchema = (schemaMap as any)[schemaName];
-    return async (ctx: Context, next: () => Promise<any>) => {
-      if (schema instanceof mixed) {
-        const value =
+    if (schema instanceof mixed) {
+      return async (ctx: Context, next: () => Promise<any>) => {
+        const values =
           type === 'params'
             ? ctx.params
             : type === 'query'
               ? ctx.query
               : ctx.request.body;
-        await schema.validate(value);
-      } else {
-        logger.warn(`Waring: validator schema ${schemaName} is not existed`);
-      }
-      await next();
-    };
+        await schema.validate(values);
+        await next();
+      };
+    } else {
+      logger.warn(`Waring: validator schema ${schemaName} is not existed`);
+      return async (_, next: () => Promise<any>) => {
+        await next();
+      };
+    }
   };
 }
 

@@ -1,8 +1,4 @@
 import dotenv from 'dotenv';
-import fs from 'fs';
-import path from 'path';
-import logger from './helpers/logger';
-import startServer from './server';
 
 let dotenvFilePath = '.env.example';
 const isProd = process.env.NODE_ENV === 'production';
@@ -17,5 +13,10 @@ if (isProd) {
 }
 
 dotenv.config({ path: dotenvFilePath });
+
+import fs from 'fs';
+import path from 'path';
+import logger from './helpers/logger';
+import startServer from './server';
 
 startServer();

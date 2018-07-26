@@ -36,3 +36,15 @@ export const signUp = yup.object().shape({
     picture: yup.string(),
   }),
 });
+
+export const login = yup.object().shape({
+  username: yup
+    .string()
+    .min(3)
+    .max(20)
+    .required(),
+  password: yup
+    .string()
+    .min(6)
+    .required(),
+});
