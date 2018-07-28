@@ -11,9 +11,19 @@ yup.addMethod(yup.string, 'mobilePhone', function() {
   });
 });
 
+yup.addMethod(yup.string, 'mongoId', function() {
+  return this.test({
+    name: 'mongoId',
+    test: (value: string) => value == null || validator.isMongoId(value),
+    message: '${path} must be a valid mobile number',
+    exclusive: true,
+  });
+});
+
 declare module 'yup' {
   interface StringSchema {
     mobilePhone(): StringSchema;
+    mongoId(): StringSchema;
   }
 }
 

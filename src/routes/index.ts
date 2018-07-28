@@ -1,6 +1,7 @@
 import Koa, { Context } from 'koa';
 import Router from 'koa-router';
-import { login, signUp } from '../controllers/userController';
+import { getUsers, login, signUp } from '../controllers/userController';
+import authentication from '../middlewares/authentication';
 import { validateBody } from '../middlewares/validator';
 
 export default (app: Koa) => {
@@ -13,6 +14,8 @@ export default (app: Koa) => {
   router.post('/signUp', validateBody('signUp'), signUp);
 
   router.post('/login', validateBody('login'), login);
+
+  router.get('/users', authentication(), getUsers);
 
   app.use(router.routes()).use(router.allowedMethods());
 };

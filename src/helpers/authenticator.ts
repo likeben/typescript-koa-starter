@@ -33,6 +33,6 @@ export const authenticate = (
 
 export const validate = async (token: string): Promise<UserEntity | null> => {
   const decoded = jwt.verify(token, secret) as JWTPayload;
-  const user = await User.findById(decoded.id);
+  const user = await User.findById(decoded.id).select('-password');
   return user;
 };

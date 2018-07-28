@@ -64,3 +64,20 @@ export const login: IMiddleware = async (ctx: Context) => {
     throw e;
   }
 };
+
+interface QueryParams {
+  username?: string;
+}
+
+export const getUsers: IMiddleware = async (ctx: Context) => {
+  const { username } = ctx.query;
+  const params: QueryParams = {};
+  if (username) {
+    params.username = username;
+  }
+  const users = await User.find({ ...params, deleted: false }).select(
+    '-password'
+  );
+  ctx.status = 200;
+  ctx.body = users;
+};
