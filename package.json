@@ -1,7 +1,7 @@
 {
   "name": "typescript-koa-starter",
   "version": "1.0.0",
-  "description": "a api service powered by typescript and koa",
+  "description": "an api service powered by typescript and koa",
   "main": "index.js",
   "scripts": {
     "precommit": "npm run lint:fix",
