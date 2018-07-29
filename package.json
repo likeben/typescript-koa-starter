@@ -38,7 +38,6 @@
     "koa-session": "^5.8.2",
     "koa-static": "^5.0.0",
     "mongoose": "^5.2.3",
-    "ndb": "^1.0.4",
     "pino": "^4.17.3",
     "validator": "^10.4.0",
     "yup": "^0.25.1"

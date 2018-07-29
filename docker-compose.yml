@@ -1,0 +1,27 @@
+version: '3'
+services: 
+  app:
+    build: .
+    env_file: .env
+    ports:
+      - '${PORT}:6666'
+    volumes:
+      - '.:/usr/src/app'
+    depends_on:
+      # - redis_db
+      - mongo_db
+  mongo_db:
+    image: mongo
+    volumes:
+      - /data/mongo
+  # redis_db:
+  #   image: redis
+  #   volumes:
+  #     - /data/redis
+  proxy_nginx:
+    image: nginx
+    # ports:
+    #   - '8080:8080'
+    # volumes:
+    #   - ./dist:/usr/share/nginx/html
+    #   - ./docker-nginx.conf:/etc/nginx/conf.d/docker-nginx.conf
