@@ -17,6 +17,7 @@ export const signUp: IMiddleware = async (ctx: Context) => {
     const userObject = user.toJSON();
     Reflect.deleteProperty(userObject, 'password');
     ctx.status = 200;
+    ctx.cookies.set('token', token);
     ctx.body = {
       user: userObject,
       token,
@@ -48,6 +49,7 @@ export const login: IMiddleware = async (ctx: Context) => {
         const userObject = user.toJSON();
         Reflect.deleteProperty(userObject, 'password');
         ctx.status = 200;
+        ctx.cookies.set('token', token);
         ctx.body = {
           user: userObject,
           token,

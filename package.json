@@ -5,17 +5,21 @@
   "main": "index.js",
   "scripts": {
     "precommit": "npm run lint:fix",
-    "dev": "tsc-watch --onSuccess 'node dist/index.js'",
-    "build": "rimraf dist && tsc",
+    "dev": "tsc-watch -p tsconfig.server.json --onSuccess 'node dist/index.js'",
+    "build": "rimraf dist && tsc -p tsconfig.server.json",
     "start": "cross-env NODE_ENV=production node dist/index.js",
-    "lint": "tslint -c tslint.json -p tsconfig.json",
-    "lint:fix": "tslint -c tslint.json -p tsconfig.json --fix"
+    "lint": "tslint -c tslint.json 'src/**/*.{ts,tsx,d.ts}' 'pages/**/*.{ts,tsx,d.ts}'",
+    "lint:fix": "tslint -c tslint.json --fix 'src/**/*.{ts,tsx,d.ts}' 'pages/**/*.{ts,tsx,d.ts}'",
+    "next:dev": "next",
+    "next:build": "next build",
+    "next:start": "next start"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@koa/cors": "^2.2.2",
+    "@zeit/next-typescript": "1.1.0",
     "bcryptjs": "^2.4.3",
     "bluebird": "^3.5.1",
     "boom": "^7.2.0",
@@ -37,11 +41,17 @@
     "koa-session": "^5.8.2",
     "koa-static": "^5.0.0",
     "mongoose": "^5.2.3",
+    "next": "^6.1.1",
     "pino": "^4.17.3",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "tslint-react": "^3.6.0",
     "validator": "^10.4.0",
     "yup": "^0.25.1"
   },
   "devDependencies": {
+    "@types/next": "latest",
+    "@types/react": "^16.0.36",
     "@types/bcryptjs": "^2.4.1",
     "@types/bluebird": "^3.5.22",
     "@types/boom": "^7.2.0",
